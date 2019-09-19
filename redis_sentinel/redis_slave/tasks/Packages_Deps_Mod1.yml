@@ -1,0 +1,37 @@
+---
+   - name: Install required libraries
+     become: yes
+     yum: name={{ item }} state=latest
+     with_items:
+        - 'binutils'
+        - 'compat-libcap1'
+        - 'compat-libstdc++-33.x86_64'
+        - 'gcc.x86_64'
+        - 'gcc-c++.x86_64'
+        - 'glibc.x86_64'
+        - 'glibc-devel.x86_64'
+        - 'libaio.x86_64'
+        - 'libaio-devel.x86_64'
+        - 'libgcc.x86_64'
+        - 'libstdc++.x86_64'
+        - 'libstdc++-devel.x86_64'
+        - 'ksh'
+        - 'make'
+        - 'sysstat'
+        - 'rsync'
+        - 'tcl'
+
+   - name: Adding open user file limits
+     lineinfile: dest=/etc/security/limits.conf line='* {{ item.limit }} {{ item.type}} {{ item.value }}'
+     with_items:
+      - { limit: 'soft', type: nofile, value: '65536' }
+      - { limit: 'hard', type: nofile, value: '65536' }
+     become: yes
+
+   - name: Create installer directory
+     become: yes
+     file:
+      state: directory
+      path: "{{ package_files_dir }}/installer"
+      owner: "{{ _ins_user }}"
+      group: "{{ _ins_group }}"

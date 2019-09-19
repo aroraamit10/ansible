@@ -1,0 +1,12 @@
+---
+   - name: Changing Ownership Of Redis Folder
+     become: yes
+     file: path="{{ redis_directory_path }}" owner="{{ _ins_user }}" group="{{ _ins_group }}" mode=775 recurse=yes
+   - name: copy redis configure file
+     template: src=redis.conf dest="{{ redis_directory_path }}" owner="{{ _ins_user }}" group="{{ _ins_group }}"
+   - name: copy sentinel configure file
+     template: src=sentinel.conf dest="{{redis_directory_path }}" owner="{{ _ins_user }}" group="{{ _ins_group }}"
+   - name: Executing start redis script
+     shell: "{{ redis_directory_path_src }}/redis-server {{ redis_directory_path }}/redis.conf &"
+   - name: Executing start redis_sentinel script
+     shell: "{{ redis_directory_path_src }}/redis-server {{ redis_directory_path }}/sentinel.conf --sentinel &"

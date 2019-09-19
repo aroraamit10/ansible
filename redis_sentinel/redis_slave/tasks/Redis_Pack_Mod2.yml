@@ -1,0 +1,25 @@
+---
+   - name: Copy Redis File To Host
+     copy:
+       src: "{{ installation_package_archive }}"
+       dest: "{{ package_files_dir }}/installer"
+
+   - name: Extracting Redis Package
+     become: yes
+     command: 'tar -zxf "{{ package_files_dir }}"/installer/"{{ installation_package_archive }}" -C "{{ redis_installation_dir }}"'
+
+   - name: Changing Ownership Of Redis Folder
+     become: yes
+     file: path="{{ redis_directory_path }}" owner="{{ _ins_user }}" group="{{ _ins_group }}" mode=775 recurse=yes
+
+   - name: Running make for redis src
+     become: yes
+     shell: '/usr/bin/make "{{ redis_directory_path_deps }}"/jemalloc'
+
+   - command: chdir="{{ redis_directory_path_src }}" {{ item }}
+     become: yes
+     with_items:
+     - '/usr/bin/make'
+     - '/usr/bin/make install'
+     - '/usr/bin/make test'
+     ignore_errors: yes

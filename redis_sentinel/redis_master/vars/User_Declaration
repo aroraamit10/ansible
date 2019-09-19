@@ -1,0 +1,12 @@
+# user and group configuration
+redis_master_ip: '10.222.167.60'
+redis_master_port: '26379'
+redis_cluster_name: 'mycluster'
+package_files_dir: '/tmp'
+_ins_user: 'ecf_user'
+_ins_group: 'ecf_user'
+installation_package_archive: 'redis-stable.tar.gz'
+redis_installation_dir: '/opt'
+redis_directory_path: '{{ redis_installation_dir }}/redis-stable'
+redis_directory_path_src: '{{ redis_directory_path }}/src'
+redis_directory_path_deps: '{{ redis_directory_path }}/deps'
