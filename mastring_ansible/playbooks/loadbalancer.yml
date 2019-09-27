@@ -4,3 +4,6 @@
     tasks:
       - name: Install Nginx
         apt: name=nginx state=present update_cache=yes
+
+      - name: ensure nginx started
+        service: name=ngiinx state=started enabled=yes
