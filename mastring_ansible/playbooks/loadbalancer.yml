@@ -6,4 +6,4 @@
         apt: name=nginx state=present update_cache=yes
 
       - name: ensure nginx started
-        service: name=ngiinx state=started enabled=yes
+        service: name=nginx state=started enabled=yes
