@@ -7,7 +7,7 @@
 - hosts: webserver
   become: true
   tasks:
-    - service: name=apapche2 state=stopped
+    - service: name=apache2 state=stopped
 
 - hosts: database
   become: true
@@ -17,7 +17,7 @@
 - hosts: webserver
   become: true
   tasks:
-    - service: name=apapche2 state=start
+    - service: name=apache2 state=start
 
 - hosts: loadbalancer
   become: true
