@@ -1,0 +1,25 @@
+---
+- hosts: loadbalancer
+  become: true
+  tasks:
+    - service: name=nginx state=stop
+
+- hosts: webserver
+  become: true
+  tasks:
+    - service: name=apapche2 state=stop
+
+- hosts: database
+  become: true
+  tasks:
+    - service: name=mysql state=restarted
+
+- hosts: webserver
+  become: true
+  tasks:
+    - service: name=apapche2 state=start
+
+- hosts: loadbalancer
+  become: true
+  tasks:
+    - service: name=nginx state=start
