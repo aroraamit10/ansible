@@ -17,11 +17,11 @@
       apache2_module: name=wsgi state=present
       notify: restart apache2
 
-    - name: Copy demo app source
+    - name: copy demo app source
       copy: src=demo/app/ dest=/var/www/html/demo mod=0755
       notufy: restart apache2
 
-    - name: Copy demo.conf
+    - name: Copy apache virtual host conf
       copy: src=demo/demo.conf dest=/etc/apache2/sites-available mod=0755
       notufy: restart apache2
 
