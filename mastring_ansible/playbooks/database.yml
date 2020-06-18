@@ -13,5 +13,6 @@
                   line="bind-address = 0.0.0.0"
       notify: restart mysql
   
-  handlers: restart nginx
-    - service name=mysql state=restarted
+  handlers: 
+    - name: restart nginx
+    - service: name=mysql state=restarted
