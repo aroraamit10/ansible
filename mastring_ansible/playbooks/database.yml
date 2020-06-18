@@ -14,5 +14,5 @@
       notify: restart mysql
   
   handlers: 
-    - name: restart nginx
+    - name: restart mysql
     - service: name=mysql state=restarted
