@@ -29,7 +29,7 @@
 - hosts: control
   tasks:
     - name: verify end-to-end resopnse
-      uri: url=http://lb01 return_content=yes
+      uri: url=http://{{item}} return_content=yes
       with_items: groups.loadbalancer
       register: lb_index
 
@@ -41,7 +41,7 @@
   tasks:
     - name: verify backend resopnse
       uri: url=http://{{item}} return_content=yes
-      with_items: group.webserver
+      with_items: groups.webserver
       register: app_index
 
     - fail: msg="index failed to return content"
