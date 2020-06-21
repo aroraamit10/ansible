@@ -39,7 +39,7 @@
 
 - hosts: loadbalancer
   tasks:
-    - name: verify end-to-end resopnse
+    - name: verify backend resopnse
       uri: url=http://{{item}} return_content=yes
       with_items: groups.webservers
       register: app_index
