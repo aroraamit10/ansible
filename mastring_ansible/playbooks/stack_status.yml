@@ -25,3 +25,27 @@
 
     - name: verify mysql is running on port 3306
       wait_for: port=3306 timeout=1
+
+- hosts: control
+  become: true
+  tasks:
+    - name: verify end-end resopnse
+      uri: url=http//{{item}} return_content=yes
+      with_itmes: groups.loadbalancer
+      register: lb_index
+
+    - fail: msg="index failed to return content"
+      when: "'Hello, from sunny' not in item.content"
+      with_itmes: "{{lb_index.results}}"
+
+- hosts: loadbalancer
+  become: true
+  tasks:
+    - name: verify end-end resopnse
+      uri: url=http//{{item}} return_content=yes
+      with_itmes: groups.webservers
+      register: app_index
+
+    - fail: msg="index failed to return content"
+      when: "'Hello, from sunny {{item.iten}}!' not in item.content"
+      with_itmes: "{{app_index.results}}"
