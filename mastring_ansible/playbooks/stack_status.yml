@@ -30,7 +30,7 @@
   become: true
   tasks:
     - name: verify end-to-end resopnse
-      uri: url=http//{{item}} return_content=yes
+      uri: url=http://{{item}} return_content=yes
       with_items: groups.loadbalancer
       register: lb_index
 
@@ -42,7 +42,7 @@
   become: true
   tasks:
     - name: verify end-to-end resopnse
-      uri: url=http//{{item}} return_content=yes
+      uri: url=http://{{item}} return_content=yes
       with_items: groups.webservers
       register: app_index
 
