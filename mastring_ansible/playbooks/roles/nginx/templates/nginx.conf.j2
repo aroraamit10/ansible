@@ -9,6 +9,6 @@ server {
   listen {{ item.value.frontend }};
 
   location / {
-    proxy_pass http://{ item.key }};
+    proxy_pass http://{{ item.key }};
   }
 }
