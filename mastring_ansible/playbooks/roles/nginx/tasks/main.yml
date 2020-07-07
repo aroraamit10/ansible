@@ -18,6 +18,7 @@
 - name: get active site
   shell: "ls -1 /etc/nginx/sites-enabled"
   register: active_output
+  changed_when: "active_output.stdout_lines != sites.keys()"
   tags: ['configure']
 
 - name: de-activate nginx site
